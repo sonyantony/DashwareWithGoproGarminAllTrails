@@ -24,6 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,8 +45,8 @@ public class Main {
 
 	private static String previousDt;
 
-	private static TcxTrackPointInterpolator garminTpInterpolator;
-	private static TcxTrackPointInterpolator alltrailsTpInterpolator;
+//	private static TcxTrackPointInterpolator garminTpInterpolator;
+//	private static TcxTrackPointInterpolator alltrailsTpInterpolator;
 	private static String outputCsvFileName;
 	private static Writer outputCsvFileWriter;
 	private static long timeLineInSecs = 0;
@@ -73,6 +75,11 @@ public class Main {
 		long numSecs2iterate = (mp4File.getEndDt().getTime() - mp4File.getStartDt().getTime()) / 1000;
 //		long numSecs2iterate = (long)mp4File.getDurationInSecs() ;
 		long mp4FileStartTime = mp4File.getStartDt().getTime();
+		TpDateSelectorPredicate p = new TpDateSelectorPredicate(mp4FileStartTime, mp4File.getEndDt().getTime());
+		List<TcxTrackPoint> garminTcxDataSubSet = garminTcxData.stream().filter(p).collect(Collectors.toList()) ;
+		TcxTrackPointInterpolator garminTpInterpolator = new TcxTrackPointInterpolator(garminTcxDataSubSet);
+		List<TcxTrackPoint> allTrailsTcxDataSubSet = allTrailsTcxData.stream().filter(p).collect(Collectors.toList()) ;
+		TcxTrackPointInterpolator alltrailsTpInterpolator = new TcxTrackPointInterpolator(allTrailsTcxDataSubSet);
 		TcxTrackPoint t = null;
 		for (long i = 0; i < numSecs2iterate; i++) {
 			Date d = new Date(mp4FileStartTime + i * 1000);
@@ -107,8 +114,8 @@ public class Main {
 		processMp4List(mp4ListFileName);
 		parseTcxFile(garminTcxFileName);
 		parseTcxFile(allTrailsTcxFilename);
-		garminTpInterpolator = new TcxTrackPointInterpolator(garminTcxData);
-		alltrailsTpInterpolator = new TcxTrackPointInterpolator(allTrailsTcxData);
+//		garminTpInterpolator = new TcxTrackPointInterpolator(garminTcxData);
+//		alltrailsTpInterpolator = new TcxTrackPointInterpolator(allTrailsTcxData);
 	}
 
 	private static String getSystemProperty(String key) throws Exception {

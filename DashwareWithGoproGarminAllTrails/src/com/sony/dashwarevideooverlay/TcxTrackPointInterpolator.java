@@ -1,6 +1,7 @@
 package com.sony.dashwarevideooverlay;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 //import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
 import org.apache.commons.math3.analysis.interpolation.LinearInterpolator;
@@ -12,7 +13,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 
 public class TcxTrackPointInterpolator {
 
-	private ArrayList<TcxTrackPoint> tcxData;
+	private List<TcxTrackPoint> tcxData;
 
 	private PolynomialSplineFunction latInterpolator;
 	private PolynomialSplineFunction lngInterpolator;
@@ -29,7 +30,7 @@ public class TcxTrackPointInterpolator {
 //	private PolynomialFunctionNewtonForm speedMtrPerSecInterpolator;
 //	private PolynomialFunctionNewtonForm cadenceInterpolator;
 
-	public TcxTrackPointInterpolator(ArrayList<TcxTrackPoint> tcxData) {
+	public TcxTrackPointInterpolator(List<TcxTrackPoint> tcxData) {
 		this.tcxData = tcxData;
 		latInterpolator = createDoubleDataInterpolator(tp -> tp.getLat());
 		lngInterpolator = createDoubleDataInterpolator(tp -> tp.getLng());
