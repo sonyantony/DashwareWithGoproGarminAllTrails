@@ -73,11 +73,9 @@ public class Main {
 
 	private static void processMp4File(Mp4File mp4File) throws IOException {
 		long numSecs2iterate = (mp4File.getEndDt().getTime() - mp4File.getStartDt().getTime()) / 1000;
-//		long numSecs2iterate = (long)mp4File.getDurationInSecs() ;
 		long mp4FileStartTime = mp4File.getStartDt().getTime();
 		TpDateSelectorPredicate p = new TpDateSelectorPredicate(mp4FileStartTime, mp4File.getEndDt().getTime());
 		List<TcxTrackPoint> garminTcxDataSubSet = garminTcxData.stream().filter(p).sorted(new TcxTrackPointComparator())
-//		List<TcxTrackPoint> garminTcxDataSubSet = garminTcxData.stream().filter(p)
 				.collect(Collectors.toList());
 		TcxTrackPointInterpolator garminTpInterpolator = new TcxTrackPointInterpolator(garminTcxDataSubSet);
 		List<TcxTrackPoint> allTrailsTcxDataSubSet = allTrailsTcxData.stream().filter(p)
