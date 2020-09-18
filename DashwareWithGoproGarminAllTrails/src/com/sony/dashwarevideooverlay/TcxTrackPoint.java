@@ -1,9 +1,11 @@
 package com.sony.dashwarevideooverlay;
+
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class TcxTrackPoint {
+public class TcxTrackPoint  {
 
 	private long milliSecsSinceBeginning;
 	private Date dt;
@@ -135,4 +137,5 @@ public class TcxTrackPoint {
 			return timeLineInSecs + ".0," + s + "," + lat + "," + lng + "," + alt + "," + dist + ",,,";
 		}
 	}
+
 }

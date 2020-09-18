@@ -80,7 +80,8 @@ public class TcxTrackPointInterpolator {
 
 	public TcxTrackPoint getTrackPoint(Date d) {
 		Date b = tcxData.get(0).getDt();
-		long milliSecsSinceBeginning = d.getTime() - b.getTime();
+//		long milliSecsSinceBeginning = d.getTime() - b.getTime();
+		long milliSecsSinceBeginning = d.getTime() - tcxData.get(0).getBegEndDates().getBeginningDate().getTime() ;
 		return getTrackPoint(milliSecsSinceBeginning);
 	}
 

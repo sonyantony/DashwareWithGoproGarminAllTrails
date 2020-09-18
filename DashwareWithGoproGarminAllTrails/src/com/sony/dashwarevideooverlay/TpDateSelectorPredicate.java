@@ -9,12 +9,12 @@ public class TpDateSelectorPredicate implements Predicate<TcxTrackPoint> {
 
 	TpDateSelectorPredicate(long intervalStart, long intervalEnd) {
 		this.intervalStart = intervalStart;
-		this.intervalEnd = intervalStart;
+		this.intervalEnd = intervalEnd;
 	}
 
 	@Override
 	public boolean test(TcxTrackPoint t) {
-		return intervalStart <= t.getMilliSecsSinceBeginning() && t.getMilliSecsSinceBeginning() >= intervalEnd;
+		return intervalStart <= t.getDt().getTime() && t.getDt().getTime() <= intervalEnd;
 	}
 
 }

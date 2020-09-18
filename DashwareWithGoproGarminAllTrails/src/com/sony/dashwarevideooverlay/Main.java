@@ -76,9 +76,12 @@ public class Main {
 //		long numSecs2iterate = (long)mp4File.getDurationInSecs() ;
 		long mp4FileStartTime = mp4File.getStartDt().getTime();
 		TpDateSelectorPredicate p = new TpDateSelectorPredicate(mp4FileStartTime, mp4File.getEndDt().getTime());
-		List<TcxTrackPoint> garminTcxDataSubSet = garminTcxData.stream().filter(p).collect(Collectors.toList()) ;
+		List<TcxTrackPoint> garminTcxDataSubSet = garminTcxData.stream().filter(p).sorted(new TcxTrackPointComparator())
+//		List<TcxTrackPoint> garminTcxDataSubSet = garminTcxData.stream().filter(p)
+				.collect(Collectors.toList());
 		TcxTrackPointInterpolator garminTpInterpolator = new TcxTrackPointInterpolator(garminTcxDataSubSet);
-		List<TcxTrackPoint> allTrailsTcxDataSubSet = allTrailsTcxData.stream().filter(p).collect(Collectors.toList()) ;
+		List<TcxTrackPoint> allTrailsTcxDataSubSet = allTrailsTcxData.stream().filter(p)
+				.sorted(new TcxTrackPointComparator()).collect(Collectors.toList());
 		TcxTrackPointInterpolator alltrailsTpInterpolator = new TcxTrackPointInterpolator(allTrailsTcxDataSubSet);
 		TcxTrackPoint t = null;
 		for (long i = 0; i < numSecs2iterate; i++) {
